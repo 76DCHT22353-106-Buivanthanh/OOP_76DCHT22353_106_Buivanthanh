@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    int a, b, chon;
+    float thuong;
+
+    // Nhap vao hai so a, b
+    printf("Nhap a = ");
+    scanf("%d", &a);
+
+    printf("Nhap b = ");
+    scanf("%d", &b);
+
+    // Hien thi menu
+    printf("\n===== MENU =====");
+    printf("\n1. Tinh tong");
+    printf("\n2. Tinh hieu");
+    printf("\n3. Tinh thuong");
+    printf("\n4. Tinh tich");
+    printf("\n5. Kiem tra a chan le");
+    printf("\n0. Thoat");
+
+    printf("\nNhap lua chon: ");
+    scanf("%d", &chon);
+
+    switch (chon)
+    {
+        case 1:
+            printf("Tong a + b = %d", a + b);
+            break;
+
+        case 2:
+            printf("Hieu a - b = %d", a - b);
+            break;
+
+        case 3:
+            if (b != 0)
+            {
+                thuong = (float)a / b;
+                printf("Thuong a / b = %.2f", thuong);
+            }
+            else
+            {
+                printf("Khong the chia cho 0!");
+            }
+            break;
+
+        case 4:
+            printf("Tich a * b = %d", a * b);
+            break;
+
+        case 5:
+            if (a % 2 == 0)
+                printf("%d la so chan", a);
+            else
+                printf("%d la so le", a);
+            break;
+
+        case 0:
+            printf("Thoat chuong trinh!");
+            break;
+
+        default:
+            printf("Lua chon khong hop le!");
+    }
+
+    return 0;
+}
