@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+
+class matran{
+	private:
+		int sohang;
+		int socot;
+		int data[100][100];
+	public:
+		Matran(){
+			sohang = 0;
+			socot = 0;
+		}
+		void nhap(){
+			cout <<"Nhap so hang: "; //in - xuat ra du lieu
+			cin >> sohang; //nhap du lieu 
+			cout <<"Nhap so cot: ";
+			cin >> socot;
+			
+			cout <<"Nhap cac phan tu cua ma tran:\n";
+			for(int i = 0; i < sohang; i++){
+				for(int j = 0; j < socot; j++){
+					cout << "A[" << i << "][" << j << "] = ";
+					cin >> data[i][j];
+				}
+			}
+		}
+		void xuat(){
+			for(int i = 0; i < sohang; i++){
+				for(int j = 0; j < socot; j++){
+					cout << data[i][j] << "\t";
+				}
+				cout << endl;
+			}
+		}
+		friend matran tong(matran a, matran b);
+};
+matran tong(matran a, matran b){
+	matran res;
+	res.sohang = a.sohang;
+	res.socot = a.socot;
+	
+	for(int i = 0; i < a.sohang; i++){
+		for(int j = 0; j < a.socot; j++){
+			res.data[i][j] = a.data[i][j] + b.data[i][j];
+		}
+	}
+	return res;
+}
+int main(){
+	matran a, b, c;
+	
+	cout << "Nhap ma tran a\n";
+	a.nhap();
+	
+	cout << "Nhap ma tran b\n";
+	b.nhap();
+	
+	c = tong(a,b);
+	
+	cout <<"Ma tran a ban dau:\n";
+	a.xuat();
+	
+	cout <<"Ma tran b ban dau:\n";
+	b.xuat();
+	
+	cout <<"Ma tran c ban dau:\n";
+	c.xuat();
+	
+	return 0;
+}
