@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+
+class PhanSo {
+private:
+    int tu, mau;
+public:
+    PhanSo(int t=0, int m=1) {
+        tu = t;
+        mau = (m==0 ? 1 : m);
+    }
+    int getTu() const { return tu; }
+    int getMau() const { return mau; }
+    void setTu(int t) { tu = t; }
+    void setMau(int m) { mau = (m==0 ? 1 : m); }
+};
+
+// nhập
+istream& operator>>(istream& in, PhanSo& p) {
+    int t, m;
+    cout << "Nhap tu: ";
+    in >> t;
+    cout << "Nhap mau: ";
+    in >> m;
+    while (m == 0) {
+        cout << "Mau phai khac 0, nhap lai: ";
+        in >> m;
+    }
+    p.setTu(t);
+    p.setMau(m);
+    return in;
+}
+
+// xuất
+ostream& operator<<(ostream& out, const PhanSo& p) {
+    out << p.getTu() << "/" << p.getMau();
+    return out;
+}
+
+// cộng
+PhanSo operator+(PhanSo a, PhanSo b) {
+    return PhanSo(a.getTu()*b.getMau() + b.getTu()*a.getMau(),
+                  a.getMau()*b.getMau());
+}
+
+// trừ
+PhanSo operator-(PhanSo a, PhanSo b) {
+    return PhanSo(a.getTu()*b.getMau() - b.getTu()*a.getMau(),
+                  a.getMau()*b.getMau());
+}
+
+// nhân
+PhanSo operator*(PhanSo a, PhanSo b) {
+    return PhanSo(a.getTu()*b.getTu(),
+                  a.getMau()*b.getMau());
+}
+
+// chia
+PhanSo operator/(PhanSo a, PhanSo b) {
+    return PhanSo(a.getTu()*b.getMau(),
+                  a.getMau()*b.getTu());
+}
+
+int main() {
+    PhanSo a, b;
+    cout << "Nhap vao a: "; cin >> a;
+    cout << "Nhap vao b: "; cin >> b;
+
+    cout << "a+b = " << a+b << endl;
+    cout << "a-b = " << a-b << endl;
+    cout << "a*b = " << a*b << endl;
+    cout << "a/b = " << a/b << endl;
+}
