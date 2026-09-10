@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+
+class PhanSo {
+private:
+    int tu, mau;
+public:
+    // Hàm tạo
+    PhanSo() { tu = 0; mau = 1; }
+    PhanSo(int t, int m) { tu = t; mau = (m==0?1:m); }
+    ~PhanSo() {}
+
+    void nhap() {
+        cout << "Nhap tu: "; cin >> tu;
+        cout << "Nhap mau: "; cin >> mau;
+        while(mau==0) {
+            cout << "Mau phai khac 0, nhap lai: ";
+            cin >> mau;
+        }
+    }
+
+    void xuat() {
+        cout << tu << "/" << mau;
+    }
+
+    int UCLN(int a, int b) {
+        while(b!=0) {
+            int r = a % b;
+            a = b; b = r;
+        }
+        return a;
+    }
+
+    void rutgon() {
+        int uc = UCLN(abs(tu), abs(mau));
+        tu /= uc; mau /= uc;
+        if(mau<0) { tu=-tu; mau=-mau; }
+    }
+
+    PhanSo cong(const PhanSo& b) {
+        PhanSo kq(tu*b.mau + b.tu*mau, mau*b.mau);
+        kq.rutgon();
+        return kq;
+    }
+    PhanSo tru(const PhanSo& b) {
+        PhanSo kq(tu*b.mau - b.tu*mau, mau*b.mau);
+        kq.rutgon();
+        return kq;
+    }
+    PhanSo nhan(const PhanSo& b) {
+        PhanSo kq(tu*b.tu, mau*b.mau);
+        kq.rutgon();
+        return kq;
+    }
+    PhanSo chia(const PhanSo& b) {
+        PhanSo kq(tu*b.mau, mau*b.tu);
+        kq.rutgon();
+        return kq;
+    }
+};
+
+int main() {
+    PhanSo a,b;
+    cout << "Nhap phan so a:\n"; a.nhap();
+    cout << "Nhap phan so b:\n"; b.nhap();
+
+    cout << "a+b = "; a.cong(b).xuat(); cout << endl;
+    cout << "a-b = "; a.tru(b).xuat(); cout << endl;
+    cout << "a*b = "; a.nhan(b).xuat(); cout << endl;
+    cout << "a/b = "; a.chia(b).xuat(); cout << endl;
+}
