@@ -1,0 +1,82 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+class  nguoi{
+    protected:
+    string hoten;
+    int nsinh;
+    public:
+    void nhap(nguoi *p);
+    void xuat(nguoi *p);
+    string gethoten() const {
+        return hoten;
+    }
+   
+};
+void nguoi::nhap(nguoi *p){
+    
+    cout<<"nhap vao ho va ten:";
+    getline( cin,p->hoten);
+    cout<<"nhap vao nam sinh:";
+    cin>>p->nsinh;
+    
+}
+ void nguoi::xuat(nguoi *p){
+    cout<<"ho va ten:"<<hoten<<"\n";
+    cout<<"nam sinh:"<<nsinh<<"\n";
+}
+class sinhvien:public nguoi{
+    private :
+    string masv;
+    float dtb;
+    public:
+    string getmasv() const{
+        return masv;
+    }
+   void nhap(sinhvien*p){
+    nguoi::nhap(p);
+    cin.ignore();
+    cout<<"nhap vao masv:";
+    getline(cin,p->masv);
+    cout<<"diem tb:";
+    cin>>p->dtb;
+    cin.ignore();
+   }
+   void xuat(sinhvien*p){
+   nguoi::xuat(p);
+   cout<<"ma sinh vien:"<<p->masv<<endl;
+   cout<<"diem trung bình:"<<p->dtb<<endl;
+   }
+
+    
+
+};
+int main(){
+    int n;
+    cout<<"nhap vao so nhan vien:";
+    cin >>n;
+    cin.ignore();
+    vector<sinhvien> sv(n);
+    for(int i= 0;i<n;i++){
+        sv[i].nhap(&sv[i]);
+    }
+    for(int i= 0;i<n;i++){
+        sv[i].xuat(&sv[i]);
+    } 
+    string check;
+    cout<<"moi nhap vao masv hoac ho ten de tim :";
+    getline(cin,check);
+    
+   bool ktra = false;
+for(int i = 0; i < n; i++) {
+    if(check == sv[i].getmasv() || check == sv[i].gethoten()) {
+        sv[i].xuat(&sv[i]);
+        ktra = true;
+        
+    }
+}
+
+if(!ktra) {
+    cout << "Khong tim thay thong tin sv";
+}
+    }
